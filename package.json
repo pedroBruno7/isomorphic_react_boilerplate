@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "start:server": "node server/src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
