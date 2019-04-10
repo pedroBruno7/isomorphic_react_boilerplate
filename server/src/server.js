@@ -17,6 +17,10 @@ app.get('/', (req, res) => {
     res.render('page1');
 })
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'public', 'index.html'))
+})
+
 app.listen(PORT, () => {
     console.log(`Server listen on port ${PORT}`);
 });
