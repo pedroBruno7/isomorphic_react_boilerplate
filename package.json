@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production --watch",
     "build:server": "webpack --config webpack.server.js --watch",
     "start:server": "node server/src/server.js",
     "webpack:server": "nodemon --watch dist --exec node dist/server_bundle.js"
