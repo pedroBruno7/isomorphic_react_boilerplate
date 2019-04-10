@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "webpack-dev-server --open",
     "build": "webpack --mode production",
-    "start:server": "node server/src/server.js"
+    "build:server": "webpack --config webpack.server.js --watch",
+    "start:server": "node server/src/server.js",
+    "webpack:server": "nodemon --watch dist --exec node dist/server_bundle.js"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +29,7 @@
     "babel-loader": "^8.0.5",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.3.1"
+    "webpack-dev-server": "^3.3.1",
+    "webpack-node-externals": "^1.7.2"
   }
 }
