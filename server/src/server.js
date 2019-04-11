@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import path from "path";
 
 import React from "react";
-import ReactDOMServer from "react-dom/server";
+import { renderToNodeStream } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 
 import App from '../../client/src/components/App';
@@ -66,52 +66,68 @@ app.get('/api/users', (req, res) => {
 app.get('/users', (req, res) => {
   const context = {};
 
-  const content = ReactDOMServer.renderToString(
+  const stream = renderToNodeStream(
     <StaticRouter location={req.url} context={context}>
       <App dataFromDB={ users }/>
     </StaticRouter>
   );
 
-  const html = `
-          <html>
-            <head>
-            </head>
-              <body>
-                <div id='root'>
-                  ${content}
-                </div>
-                <script src="./client_bundle.js"></script>
-              </body>
-          </html>
-        `;
+  // const html = `
+  //         <html>
+  //           <head>
+  //           </head>
+  //             <body>
+  //               <div id='root'>
+  //                 ${content}
+  //               </div>
+  //               <script src="./client_bundle.js"></script>
+  //             </body>
+  //         </html>
+  //       `;
 
-  res.send(html);
+  // res.send(html);
+
+  res.write("<!DOCTYPE html><html><head></head><body>");
+  res.write("<div id='root'>"); 
+  stream.pipe(res, { end: false });
+  stream.on('end', () => {
+    res.write("</div><script src=\"./client_bundle.js\"></script></body></html>");
+    res.end();
+  });
 })
 
 app.get("*", (req, res) => {
   // res.sendFile(path.resolve() + '/public/index.html')
   const context = {};
 
-  const content = ReactDOMServer.renderToString(
+  const stream = renderToNodeStream(
     <StaticRouter location={req.url} context={context}>
       <App />
     </StaticRouter>
   );
 
-  const html = `
-          <html>
-            <head>
-            </head>
-              <body>
-                <div id='root'>
-                  ${content}
-                </div>
-                <script src="./client_bundle.js"></script>
-              </body>
-          </html>
-        `;
+  // const html = `
+  //         <html>
+  //           <head>
+  //           </head>
+  //             <body>
+  //               <div id='root'>
+  //                 ${content}
+  //               </div>
+  //               <script src="./client_bundle.js"></script>
+  //             </body>
+  //         </html>
+  //       `;
 
-  res.send(html);
+  // res.send(html);
+
+  res.write("<!DOCTYPE html><html><head></head><body>");
+  res.write("<div id='root'>"); 
+  stream.pipe(res, { end: false });
+  stream.on('end', () => {
+    res.write("</div><script src=\"./client_bundle.js\"></script></body></html>");
+    res.end();
+  });
 });
 
 app.listen(PORT, () => {
