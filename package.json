@@ -8,13 +8,15 @@
     "build": "webpack --mode production --watch",
     "build:server": "webpack --config webpack.server.js --watch",
     "start:server": "node server/src/server.js",
-    "webpack:server": "nodemon --watch dist --exec node dist/server_bundle.js"
+    "webpack:server": "nodemon --watch dist --exec node dist/server_bundle.js",
+    "start": "concurrently \"npm run build:server\" \"npm run webpack:server\" \"npm run build\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "react": "^16.8.6",

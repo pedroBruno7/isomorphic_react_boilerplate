@@ -1,8 +1,11 @@
 const path = require('path');
+const webpack = require('webpack');
 const webpackNodeExternals = require('webpack-node-externals');
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
+  // devtool:'source-map',
+  devtool: false,
   target: 'node',
   entry: path.join(__dirname, 'server', 'src', 'server.js'),
   output: {
@@ -37,6 +40,12 @@ const config = {
     extensions: ['.js', '.jsx'],
   },
   externals: [webpackNodeExternals()],
+  plugins: [
+    new webpack.SourceMapDevToolPlugin({
+      append: '\n//# sourceMappingURL=https://example.com/sourcemap/[url]',
+      filename: '[name].map'
+    })
+  ]
 };
 
 module.exports = config;
