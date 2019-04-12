@@ -1,3 +1,4 @@
+import 'source-map-support/register';
 import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
@@ -59,7 +60,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/api/users', (req, res) => {
-    
+      // throw new Error('coco1')
       res.send(JSON.stringify(users))
 })
 

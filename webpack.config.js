@@ -3,6 +3,7 @@ const path = require('path');
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
+  devtool:'source-map',
   mode: 'development',
   entry: path.join(__dirname, 'client', 'src', 'client.js'),
   output: {

@@ -13,10 +13,10 @@ class App extends React.Component {
 
     clickHandle = () => {
         console.log('js running!!!')
+        throw new Error('coco')
     }
 
     render() {
-        // throw new Error('coco')
         return (
             <div>
                 <h1>App Component</h1>

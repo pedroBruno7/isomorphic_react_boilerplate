@@ -7,8 +7,10 @@ class Users extends React.Component {
   };
 
   componentDidMount() {
+    console.log('[componentDidMount!!!!!!!!!!!!!!]')
     fetch("/api/users")
       .then(response => {
+        console.log('[fetch!!!!!!!!!!!!!!]');
         return response.json();
       })
       .then(data => {
