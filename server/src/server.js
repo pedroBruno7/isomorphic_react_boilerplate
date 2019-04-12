@@ -60,7 +60,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/api/users', (req, res) => {
-      throw new Error('coco1')
+      // throw new Error('coco1')
       res.send(JSON.stringify(users))
 })
 
