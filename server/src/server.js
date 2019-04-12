@@ -3,46 +3,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
 
-import React from "react";
-import { renderToNodeStream } from "react-dom/server";
-import { StaticRouter } from "react-router-dom";
+import renderReactComponent from './renderReactComponent';
 
-import App from '../../client/src/components/App';
-
-const users ={ 
-  users: [
-      {name: "ze", age:23},
-      {name: "a", age:23},
-      {name: "b", age:23},
-      {name: "c", age:23},
-      {name: "d", age:23},
-      {name: "ze", age:23},
-      {name: "a", age:23},
-      {name: "b", age:23},
-      {name: "c", age:23},
-      {name: "d", age:23},
-      {name: "ze", age:23},
-      {name: "a", age:23},
-      {name: "b", age:23},
-      {name: "c", age:23},
-      {name: "d", age:23},
-      {name: "ze", age:23},
-      {name: "a", age:23},
-      {name: "b", age:23},
-      {name: "c", age:23},
-      {name: "d", age:23},
-      {name: "ze", age:23},
-      {name: "a", age:23},
-      {name: "b", age:23},
-      {name: "c", age:23},
-      {name: "d", age:23},
-      {name: "ze", age:23},
-      {name: "a", age:23},
-      {name: "b", age:23},
-      {name: "c", age:23},
-      {name: "micael", age:44}
-  ]
-};
+import users from '../data/users';
 
 const app = express();
 
@@ -64,72 +27,9 @@ app.get('/api/users', (req, res) => {
       res.send(JSON.stringify(users))
 })
 
-app.get('/users', (req, res) => {
-  const context = {};
+renderReactComponent(app, '/users', users);
 
-  const stream = renderToNodeStream(
-    <StaticRouter location={req.url} context={context}>
-      <App dataFromDB={ users }/>
-    </StaticRouter>
-  );
-
-  // const html = `
-  //         <html>
-  //           <head>
-  //           </head>
-  //             <body>
-  //               <div id='root'>
-  //                 ${content}
-  //               </div>
-  //               <script src="./client_bundle.js"></script>
-  //             </body>
-  //         </html>
-  //       `;
-
-  // res.send(html);
-
-  res.write("<!DOCTYPE html><html><head></head><body>");
-  res.write("<div id='root'>"); 
-  stream.pipe(res, { end: false });
-  stream.on('end', () => {
-    res.write("</div><script src=\"./client_bundle.js\"></script></body></html>");
-    res.end();
-  });
-})
-
-app.get("*", (req, res) => {
-  // res.sendFile(path.resolve() + '/public/index.html')
-  const context = {};
-
-  const stream = renderToNodeStream(
-    <StaticRouter location={req.url} context={context}>
-      <App />
-    </StaticRouter>
-  );
-
-  // const html = `
-  //         <html>
-  //           <head>
-  //           </head>
-  //             <body>
-  //               <div id='root'>
-  //                 ${content}
-  //               </div>
-  //               <script src="./client_bundle.js"></script>
-  //             </body>
-  //         </html>
-  //       `;
-
-  // res.send(html);
-
-  res.write("<!DOCTYPE html><html><head></head><body>");
-  res.write("<div id='root'>"); 
-  stream.pipe(res, { end: false });
-  stream.on('end', () => {
-    res.write("</div><script src=\"./client_bundle.js\"></script></body></html>");
-    res.end();
-  });
-});
+renderReactComponent(app, '*');
 
 app.listen(PORT, () => {
   console.log(`Server listen on port ${PORT}`);
