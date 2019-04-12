@@ -7,7 +7,7 @@ import App from './components/App';
 
 ReactDOM.hydrate(
     <BrowserRouter>
-        <App/>
+        <App />
     </BrowserRouter>,
     document.getElementById('root')
 )
