@@ -42,7 +42,7 @@ const config = {
   externals: [webpackNodeExternals()],
   plugins: [
     new webpack.SourceMapDevToolPlugin({
-      append: '\n//# sourceMappingURL=https://example.com/sourcemap/[url]',
+      append: '\n//# sourceMappingURL=[url]',
       filename: '[name].map'
     })
   ]
