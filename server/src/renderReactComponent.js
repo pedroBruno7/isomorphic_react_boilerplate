@@ -14,17 +14,45 @@ export default function(app, route = '', data = {}) {
       </StaticRouter>
     );
 
-    res.write("<!DOCTYPE html><html><head></head><body>");
-    res.write("<div id='root'>");
-    stream.pipe(
-      res,
-      { end: false }
+    res.write('\
+      <!DOCTYPE html>\
+      <html lang="en">\
+          <head>\
+            <meta charset="UTF-8">\
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">\
+            <title>Document</title>\
+          </head>\
+          <body>\
+    '
     );
+    res.write("<div id='root'>");
+    stream.pipe(res, { end: false });
     stream.on("end", () => {
-      res.write(
-        '</div><script src="./client_bundle.js"></script></body></html>'
+      res.write('\
+            </div>\
+            <script src="./client_bundle.js"></script>\
+          </body>\
+        </html>\
+      '
       );
       res.end();
     });
   });
 }
+
+/*
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="./client_bundle.js"></script>
+</body>
+</html>
+*/

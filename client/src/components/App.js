@@ -27,7 +27,7 @@ class App extends React.Component {
                     <Route path='/link1' component={Link1}/>
                     <Route path='/link2' component={Link2}/>
                     <Route path='/users' render={props => (
-                        <Users {...props} data={this.props.dataFromDB ? this.props.dataFromDB.users : undefined} />
+                        <Users {...props} data={this.props.dataFromDB && this.props.dataFromDB.users} />
                     )}/>
                 </Switch>
             </div>

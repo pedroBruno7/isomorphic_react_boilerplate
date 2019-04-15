@@ -21,6 +21,21 @@ class Users extends React.Component {
       });
   }
 
+  /*
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[this.props.data]: ', this.props.data)
+    console.log('[nextState.data]: ', nextState.data)
+
+    if (this.props.data == nextState.data) {
+      return false;
+    }
+    return true;
+  }
+  */
+  componentDidUpdate() {
+    console.log('[Inside componentDidUpdate]')
+  }
+
   render() {
     console.log("render do Users!");
 
