@@ -1,16 +1,16 @@
 import React from "react";
 import { renderToNodeStream } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
-
 import App from '../../client/src/components/App';
 
-export default function(app, route = '', data = {}) {
-  app.get(route, (req, res) => {
-    const context = {};
+
+export default function(route, initialProps, context, res) {
+  
 
     const stream = renderToNodeStream(
-      <StaticRouter location={req.url} context={context}>
-        <App dataFromDB={data} />
+      <StaticRouter location={route} context={context}>
+      {/* change the name dataFromDB to a better one */}
+        <App dataFromDB={initialProps} />
       </StaticRouter>
     );
 
@@ -38,7 +38,7 @@ export default function(app, route = '', data = {}) {
       );
       res.end();
     });
-  });
+
 }
 
 /*
